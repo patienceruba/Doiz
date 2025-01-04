@@ -1,0 +1,126 @@
+{% extends 'todo/main.html' %}
+{% block content %}
+
+<section class="wrapper">
+    <div class="side-bar">
+        <div class="profile">
+            <ul>
+                <a href="{% url 'dashboard' %}" id="profile-btn">
+                    <li><span class="material-symbols-outlined">dashboard_customize</span>Dashboard</li>
+                </a>
+                {% if user.is_staff %}
+                <a href="{% url 'add' %}" id="add-btn">
+                    <li><span class="material-symbols-outlined">add</span>Add Task</li>
+                </a>
+                <a href="{% url 'home' %}" id="view-btn">
+                    <li><span class="material-symbols-outlined">view_list</span>View Task</li>
+                </a>
+                {% endif %}
+                <a href="" id="today-btn">
+                    <li><span class="material-symbols-outlined">today</span>Today</li>
+                </a>
+                <a href="{% url 'event' %}" id="upcoming-btn">
+                    <li><span class="material-symbols-outlined">event_upcoming</span>Event</li>
+                </a>
+                <a href="{% url 'task_done' %}" id="done">
+                    <li><span class="material-symbols-outlined">task</span>Done</li>
+                </a>
+                <a href="team.html" id="team">
+                    <li><span class="material-symbols-outlined">groups</span>Team</li>
+                </a>
+                <a href="{% url 'calendar' %}" id="team">
+                    <li><span class="material-symbols-outlined">calendar_month</span>Calendar</li>
+                </a>
+                <a href="loginpage.html" id="login-btn">
+                    <li><span class="material-symbols-outlined">login</span>Login</li>
+                </a>
+                <a href="{% url 'logout' %}" id="logout-btn">
+                    <li><span class="material-symbols-outlined">logout</span>Logout</li>
+                </a>
+            </ul>
+        </div>
+    </div>
+
+    <div class="task-done-wrapper">
+        <h2>Completed Tasks</h2>
+        <div class="task-done-container">
+            {% if task_done_list %}
+                <ul>
+                    {% for task in task_done_list %}
+                        {% for img in image %}
+                            {% if img.title == task.record.title %}
+                            <a href=""><img src="{{ img.image.url }}" alt="{{ task.title }}" align="{{ task.title }}" width="100" height="100"></a>
+                            {% endif %}
+                        {% endfor %}
+                        <li>
+                            <h3>{{ task.record.title }}</h3>
+
+                            <p><strong>Description:</strong> {{ task.record.description }}</p>
+                            <p><strong>Completed On:</strong> {{ task.completed_at|date:"F j, Y, g:i a" }}</p>
+                            <p><strong>Progress:</strong> 100%</p>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>No tasks completed yet.</p>
+            {% endif %}
+        </div>
+    </div>
+</section>
+<section class="footer">
+    <span><p>&copy; 2024 InfinityMind Company. All Rights Reserved.</p></span>
+</section>
+<style type="text/css">
+body{
+    background-color: white;
+}
+    .task-done-wrapper {
+  /* Assuming sidebar takes up 250px */
+    width: 100%;
+    padding: 20px;
+    background-color: white;
+}
+
+.task-done-container {
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+}
+
+.task-done-container ul {
+    list-style: none;
+    padding: 0;
+}
+
+.task-done-container li {
+    background: #fff;
+    margin-bottom: 10px;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.task-done-container li h3 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.task-done-container li p {
+    margin: 5px 0;
+    color: #555;
+}
+.footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+.footer p {
+    margin: 0;
+}
+</style>
+{% endblock %}

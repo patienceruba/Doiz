@@ -1,0 +1,131 @@
+<section class="login-reg">
+    <div class="login">
+        <h1>LOGIN</h1>
+        <form method="POST">
+            {% csrf_token %}
+            <input type="text" name="username" placeholder="Username" id="username" required>
+            <input type="password" name="password" placeholder="Password" id="password" required>
+            <button type="submit" name="login" id="login">Login</button>
+        </form>
+
+        <div class="options">
+            <label for="remember-me">
+                <input type="checkbox" name="remember" id="remember-me"> Remember Me
+            </label>
+            <a href="{% url 'password_reset_request' %}" class="forgot-password">Forgot Password?</a>
+        </div>
+
+        <p id="link">Don't have an account? <a href="{% url 'register' %}">Sign up here</a></p>
+    </div>
+</section>
+
+
+
+<style type="text/css">
+    /* General body styling */
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    /* Login-registration section */
+    .login-reg {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
+
+    /* Login form container */
+    .login {
+        background-color: #fff;
+        padding: 20px 30px;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        width: 80%;
+        max-width: 300px;
+        text-align: center;
+    }
+
+    .login h1 {
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    /* Input fields styling */
+    .login input[type="text"],
+    .login input[type="password"],
+    .login button {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border: 1px solid #ccc;
+        font-size: 16px;
+        border: none;
+        outline: none;
+        border-bottom: 1px solid #1ccc;
+    }
+
+    /* Button styling */
+    .login button {
+        background-color: #007bff;
+        color: #fff;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .login button:hover {
+        background-color: #0056b3;
+    }
+
+    /* Styling for the options section (checkbox + forgot password) */
+    .options {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-top: 10px;
+    }
+
+    .options label {
+        font-size: 14px;
+        color: #555;
+    }
+
+    .forgot-password {
+        font-size: 14px;
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    .forgot-password:hover {
+        text-decoration: underline;
+    }
+
+    /* Link styling */
+    #link {
+        margin-top: 15px;
+        font-size: 14px;
+        color: #555;
+    }
+
+    #link a {
+        color: #007bff;
+        text-decoration: none;
+    }
+
+    #link a:hover {
+        text-decoration: underline;
+    }
+
+    /* Styling for the checkbox */
+    .login input[type="checkbox"] {
+        margin-right: 5px;
+    }
+
+</style>

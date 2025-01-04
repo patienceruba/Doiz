@@ -1,0 +1,38 @@
+{% load static %}
+<nav>
+    <h1><a href="{% url 'dashboard' %}">DoiZ</a></h1>
+    <div class="nav">
+        <form method="GET" action="{% url 'search' %}">
+            {% if request.path == '/event' or request.path == '/home' %}
+                <div class="search-container">
+                    <div class="search-input-container">
+                        <span class="material-symbols-outlined search-icon">search</span>
+                                    <!-- Add hidden redirect field depending on where the search is coming from -->
+                        <input type="hidden" name="redirect" value="{% if redirect_to %}{{ redirect_to }}{% endif %}">
+                        <input type="search" name="search" value="{{ query }}" placeholder="Search..." id="search" required>
+                    </div>
+                </div>
+            {% endif %}
+        </form>
+        <ul>
+            <li>
+                <span class="material-symbols-outlined">notifications</span>
+            </li>
+            <li>
+                <p><small id="username-display"><a href="" id="uname">{{ user.username }}</a></small></p>
+            </li>
+            <li>
+                <a href=""><img src="{% static 'image/User-Account-Person-PNG-File.png' %}" width="30" height="30" alt="User Avatar"></a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<style type="text/css">
+    span{
+        margin-right: 20px;
+    }
+    body{
+        background: grey;
+    }
+</style>

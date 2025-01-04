@@ -1,0 +1,86 @@
+{% extends 'todo/main.html' %}
+{% load static %}
+{% block content %}
+<section id="del-wrapper">
+    <form method="POST">
+        {% csrf_token %}
+        <p id="sure"><strong></strong></p>
+        <button type="submit">Confirm</button>
+        <a href="{{ request.META.HTTP_REFERER|default:'/' }}" id="nope">No</a>
+    </form>
+</section>
+<style>
+    #del-wrapper {
+        margin-left: 35%;
+        margin-top: 5%;
+        border: 1px solid black;
+        width: 30%;
+        height: 300px;
+        background: #2c3e50;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        border-radius: 10px;
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+
+    p {
+        color: white;
+        font-size: 25px;
+        text-align: center;
+    }
+
+    button {
+        padding: 10px 20px;
+        background-color: red;
+        color: white;
+        outline: none;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 16px;
+    }
+
+    button:hover {
+        background-color: darkred;
+    }
+
+    #nope {
+        text-decoration: none;
+        color: white;
+        background-color: green;
+        padding: 10px 40px;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+
+    #nope:hover {
+        background-color: darkgreen;
+    }
+</style>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const sureElement = document.getElementById("sure");
+    const placeholderText = "Are you sure you want to delete this '{{ item.title }}' row?";
+    let i = 0;
+
+    function typeText() {
+        if (i < placeholderText.length) {
+            sureElement.textContent = placeholderText.substring(0, i + 1);
+            i++;
+            setTimeout(typeText, 100); // Adjust typing speed here
+        }
+    }
+
+    typeText();
+});
+</script>
+{% endblock %}

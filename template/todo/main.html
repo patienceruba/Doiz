@@ -1,0 +1,620 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TODOIZ</title>
+  
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+</head>
+<body>
+
+
+<style type="text/css">
+    
+.material-symbols-outlined{
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; /* Icon settings */
+    font-size: 20px; /* Icon size */
+    color: #3498db; /* Icon color */
+    vertical-align: middle;
+
+</style>
+<style type="text/css">
+/*----------------------------------------------calendar-----------------------------------------------------*/
+  #calendar {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 500px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    padding: 10px;
+}
+
+.day-name {
+    text-align: center;
+    font-weight: bold;
+    color: #555;
+}
+
+.day {
+    text-align: center;
+    padding: 10px;
+    background: #f4f4f4;
+    border-radius: 4px;
+}
+
+.day:hover {
+    background: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+.day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    margin: auto;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.day:hover {
+    background-color: #ddd;
+}
+
+.highlight {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+</style>
+<style type="text/css">
+    /*------------------------------------------------------------add--------------------------------------------*/
+    .wrapper{
+    display: flex;
+    flex-direction: row;
+    
+}
+#add-section {
+
+    margin: 0px;
+    padding: 20px;
+    background: #fff;
+    width: 60%;
+    background-color: none;
+    width: 100%;
+}
+.add-tb h2 {
+    margin-left: 45%;
+    margin-bottom: 20px;
+    color: #333;
+    font-family: arial;
+}
+
+.add-tb input, .add-tb textarea {
+    width: 100%;
+    margin-bottom: 15px;
+    padding: 10px;
+    border: none;
+    outline: none;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+#btn {
+    width: 20%;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    margin-left: 40%;
+}
+
+#btn:hover {
+    background-color: #218838;
+}
+#message{
+    min-height: 200px;
+}
+#date{
+    width: 120px;
+}
+
+</style>
+
+<style type="text/css">
+/*-------------------------------------------------------addcontent---------------------------------------------*/
+/* Styling for the view-section */
+.nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.wrapper{
+    display: flex;
+    flex-direction: row;
+}
+#search{
+    margin-right: 300px;
+    padding: 10px 20px;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+}
+#view-section {
+    margin: 0px;
+    padding: 20px;
+    background: #fff;
+    
+    width: 60%;
+    background-color: none;
+    width: 100%;
+}
+
+.view-list h2 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.view-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.view-list ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+button.del-btn, button.up-btn {
+    padding: 5px 10px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+button.del-btn {
+    background-color: #dc3545;
+}
+
+button.del-btn:hover {
+    background-color: #c82333;
+}
+
+button.up-btn {
+    background-color: #007bff;
+}
+
+button.up-btn:hover {
+    background-color: #0056b3;
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+table {
+            width: 100%;
+            margin: 5px auto;
+            border-collapse: collapse;
+            text-align: left;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+    text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+td {
+    font-size: 14px;
+}
+#update-btn{
+ 
+    background-color: blue;
+}
+ #dlt-btn{
+    background-color: red;
+ }
+table {
+    width: 100%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #1abc9c;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+#update-btn a, #dlt-btn a {
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: #3498db;
+}
+
+#dlt-btn a {
+    background-color: #e74c3c;
+}
+
+#update-btn a:hover, #dlt-btn a:hover {
+    opacity: 0.8;
+}
+tr #asdone{
+    border: none;
+    border-radius: 50%;
+}
+/*disable browser's scroll down */
+/* Disable the main browser scroll 
+html, body {
+    overflow: hidden; /* Disable the default scroll */
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+    height: 100%; /* Ensure the full height */
+}
+*/
+
+
+</style>
+<style type="text/css">
+/*-------------------------------------------------------navbar------------------------------------------------*/
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c3e50;
+    color: white;
+    padding: 10px 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    width: 98%;
+    margin-bottom: 20px;
+}
+
+nav h1 a {
+    color: #1abc9c;
+    text-decoration: none;
+    font-size: 24px;
+}
+
+nav .nav {
+    display: flex;
+    align-items: center;
+}
+
+nav .search-container {
+    display: flex;
+}
+
+nav .search-input-container {
+    position: relative;
+}
+
+nav .search-input-container input[type="search"] {
+    padding: 5px 10px;
+    padding-left: 30px; /* Space for the icon */
+    border-radius: 10px;
+    border: 10px solid #ccc;
+}
+
+nav .search-input-container .search-icon {
+    position: absolute;
+    left: 10px; /* Position the icon inside the input */
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ccc;
+}
+
+nav ul {
+    display: flex;
+    align-items: center;
+    list-style-type: none;
+}
+
+nav ul img {
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+nav ul p {
+    margin: 0;
+    font-size: 14px;
+}
+
+nav ul a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+}
+
+</style>
+<style type="text/css">
+  
+</style>
+<style type="text/css">
+ 
+
+</style>
+<style type="text/css">
+/*------------------------------------------------------------sidebar-----------------------------------------------*/
+    /* Prevent the whole page from scrolling */
+html, body {
+    height: 100%;
+    margin: 0;
+    overflow: hidden; /* Disable page scroll */
+}
+
+/* Make the main section scrollable */
+.wrapper {
+    height: 100%; /* Ensure it takes up full height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    padding-left: 250px; /* Add padding to accommodate the sidebar */
+    padding-bottom: 50px; /* Optional, to avoid the footer blocking content */
+}
+
+/* Sidebar remains fixed */
+.side-bar {
+    margin-top: 88px;
+    margin-bottom: 140px;
+    width: 250px;
+    height: 100vh;
+    background-color: #34495e;
+    position: fixed; /* Keep it fixed */
+    top: 0;
+    left: 0;
+    overflow: auto;
+    padding-top: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+/* Sidebar profile section */
+.side-bar .profile {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.side-bar .profile img {
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.side-bar .profile p {
+    color: white;
+    font-size: 16px;
+    margin: 0;
+}
+
+/* Sidebar menu list */
+.side-bar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.side-bar ul a {
+    display: block;
+    padding: 10px 15px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.5s ease;
+    border: none;
+}
+
+.side-bar ul a:hover {
+    width: 100%;
+    text-decoration: none;
+    color: #fff;
+    box-shadow: 10px 5px 10px #fff;
+}
+
+/* Sidebar list items */
+.side-bar ul li {
+    padding: 10px 0;
+    color: white;
+    font-size: 18px;
+}
+
+.side-bar ul li a {
+    color: white;
+    text-decoration: none;
+}
+
+.side-bar ul li a:hover {
+    padding-left: 10px;
+}
+
+/* User info section styling */
+.user-info-container {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 20px;
+    margin: 20px;
+    background: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.user-profile img {
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+}
+
+.user-details h3 {
+    margin: 0;
+    font-size: 20px;
+    color: #333;
+}
+
+.user-details p {
+    margin: 5px 0;
+    font-size: 16px;
+    color: #555;
+}
+
+/* Dashboard statistics grid layout */
+.dashboard-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    padding: 20px;
+    margin: 20px;
+    background: #f4f4f4;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-item {
+    text-align: center;
+    padding: 20px;
+    background: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.dashboard-item h3 {
+    margin: 10px 0;
+    font-size: 18px;
+    color: #333;
+}
+
+.dashboard-item p {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007BFF;
+}
+
+/* Footer styling */
+.footer {
+    text-align: center;
+    background: #333;
+    color: #fff;
+    padding: 10px 0;
+}
+
+</style>
+<style type="text/css">
+     
+ body {
+    overflow-y: auto; /* Enable scrolling if content overflows */
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+    height: 100vh; /* Ensure the height is 100% of the viewport */
+}
+
+.wrapper {
+    min-height: 100vh; /* Ensure the wrapper takes up at least the full viewport height */
+    padding-bottom: 50px; /* Optional: Give space for footer */
+}
+
+/* If you want the content section (excluding footer) to be scrollable */
+.dashboard-wrapper {
+    overflow-y: auto; /* Allow vertical scrolling within this container */
+    max-height: calc(100vh - 100px); /* Adjust this value based on your layout (e.g., subtract header/footer height) */
+}
+
+/* Optional: To fix the footer at the bottom */
+./* Footer Styling */
+.footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: #333;
+    color: white;
+    text-align: center;
+    height: 40px;
+    opacity: 0; /* Make the footer invisible initially */
+    pointer-events: none; /* Prevent interaction when invisible */
+    transition: opacity 0.3s ease-in-out; /* Smooth transition for visibility */
+}
+
+/* Show footer when the user hovers over the bottom of the page */
+body:hover .footer {
+    opacity: 1; /* Make the footer visible when hovered */
+    pointer-events: auto; /* Allow interaction when visible */
+}
+body{
+    background-color: white;
+}
+</style>
+	{% include 'todo/nav.html' %}
+	{% block content %}
+
+	{% endblock %}
+	<script type="text/javascript" src="{% static 'javascript/placeholder.js' %}"></script>
+	<script type="text/javascript" src="{% static 'javascript/add.js' %}"></script>
+	<script type="text/javascript" src="{% static 'javascript/index.js' %}"></script>
+    <script type="text/javascript" src="{% static 'javascript/login.js' %}"></script>
+    
+  
+</body>
+</html>

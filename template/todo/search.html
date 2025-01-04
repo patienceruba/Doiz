@@ -1,0 +1,72 @@
+
+{% extends 'todo/main.html' %}
+{% load static %}
+{% block content %}
+
+<section class="wrapper">
+    <div class="side-bar">
+    <div class="profile">
+        <ul>
+            <div>
+                <a href=""><img src="{% static 'image/OIP.jpg' %}" width="30" height="30"></a>
+                <p><strong>Username:</strong> <small id="username-display">JohnDoe</small></p>  
+            </div>
+            <a href="{% url 'add' %}" id="add-btn"><li><span class="material-symbols-outlined">add</span>Add Task</li></a>
+            <a href="{% url 'home' %}" id="view-btn"><li><span class="material-symbols-outlined">view_list</span>View Task</li></a>
+            <a href="" id="today-btn"><li><span class="material-symbols-outlined">today</span>Today</li></a>
+           <a href="upcoming.html" id="upcoming-btn"><li><span class="material-symbols-outlined">event_upcoming</span>Event</li></a>
+            <a href="done.html" id="done"><li><span class="material-symbols-outlined">task</span>Done</li></a>
+            <a href="team.html" id="team"><li><span class="material-symbols-outlined">groups</span>Team</li></a>
+            <a href="calender.html" id="team"><li><span class="material-symbols-outlined">calendar_month</span>Calender</li></a>
+            <a href="profile.html" id="profile-btn"><li><span class="material-symbols-outlined">person</span>Profile</li></a>
+            <a href="loginpage.html" id="login-btn"><li><span class="material-symbols-outlined">login</span>login</li></a>
+            <a href="loginpage.html" id="logout-btn"><li><span class="material-symbols-outlined">logout</span>logout</li></a>
+        </ul>
+    </div>
+</div>
+    <section id="view-section" class="section1">
+        <div class="view-list">
+            <h2>seach result for  "{{query}}"</h2>
+            <table>
+                <tr>
+                    <th>Done</th>
+                    <th>Task Name</th>
+                    <th>Start Date</th>
+                    <th>Task Progress</th>
+                    {% if user.is_staff %}
+                    <th>Update</th>
+                    <th>Delete</th>
+                    {% endif %}
+                </tr>
+                {% for result in results %}
+                <tr>
+                    
+                       {% if tasks.progress == 100 %}
+                            <td><input type="checkbox" name="asdone" id="asdone" checked disabled></td>
+                        {% else %}
+                            <td><input type="checkbox" name="asdone" id="asdone" disabled></td>
+                        {% endif %}
+
+                        <td>{{result.title}}</td>
+                        <td>{{result.start_date}}</td>
+                        <td>
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: {{ result.progress }}%;"></div>
+                                <span class="progress-text">{{result.progress}}%</span>
+                            </div>
+                        </td>
+                        {% if user.is_staff %}
+                        <td id="update-btn"><a href="{% url 'update'  result.id%}">Update</a></td>
+                        <td id="dlt-btn"><a href="{% url 'delete'  result.id%}">Delete</a></td>
+                        {% endif %}
+
+                </tr>
+                {% endfor %}
+            </table>        
+        </div>
+    </section>
+</section>
+<section>
+    <span> <p>&copy; 2024 InfinityMind Company. All Rights Reserved.</p></span>
+</section>
+{% endblock %}

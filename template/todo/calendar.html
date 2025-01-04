@@ -1,0 +1,224 @@
+{% extends "todo/main.html" %}
+{% load static %}
+{% block content %}
+   <section class="wrapper">
+    <div class="side-bar">
+        <div class="profile">
+            <ul>
+                <a href="{% url 'dashboard' %}" id="profile-btn"><li><span class="material-symbols-outlined">dashboard_customize</span>Dashboard</li></a>
+                {% if user.is_staff %}
+                <a href="{% url 'add' %}" id="add-btn"><li><span class="material-symbols-outlined">add</span>Add Task</li></a>
+                <a href="{% url 'home' %}" id="view-btn"><li><span class="material-symbols-outlined">view_list</span>View Task</li></a>
+                {% endif %}
+                <a href="" id="today-btn"><li><span class="material-symbols-outlined">today</span>Today</li></a>
+                <a href="{% url 'event' %}" id="upcoming-btn"><li><span class="material-symbols-outlined">event_upcoming</span>Event</li></a>
+                <a href="{% url 'task_done' %}" id="done"><li><span class="material-symbols-outlined">task</span>Done</li></a>
+                <a href="team.html" id="team"><li><span class="material-symbols-outlined">groups</span>Team</li></a>
+                <a href="{% url 'calendar' %}" id="team"><li><span class="material-symbols-outlined">calendar_month</span>Calender</li></a>               
+                <a href="loginpage.html" id="login-btn"><li><span class="material-symbols-outlined">login</span>login</li></a>
+                <a href="{% url 'logout' %}" id="logout-btn"><li><span class="material-symbols-outlined">logout</span>logout</li></a>
+            </ul>
+        </div>
+    </div>
+        <section id="view-section" class="section1">
+            <div id="calendar">
+                <div class="calendar-header">
+                    <button id="prev">❮</button>
+                    <span id="month-year"></span>
+                    <button id="next">❯</button>
+                </div>
+                <div class="calendar-grid">
+                    <div class="day-name">Sun</div>
+                    <div class="day-name">Mon</div>
+                    <div class="day-name">Tue</div>
+                    <div class="day-name">Wed</div>
+                    <div class="day-name">Thu</div>
+                    <div class="day-name">Fri</div>
+                    <div class="day-name">Sat</div>
+                </div>
+                <div id="days-container" class="calendar-grid"></div>
+            </div>
+            <script src="calendar.js"></script>
+        </section>
+    </section>
+    <section>
+        <span> <p>&copy; 2024 InfinityMind Company. All Rights Reserved.</p></span>
+    </section>
+<style type="text/css">
+    #view-section{
+        margin-top: 89px;
+    }
+	#calendar {
+    margin: 20px auto;
+    width: 90%;
+    max-width: 500px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: #fff;
+    border-radius: 10px 10px 0 0;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    padding: 10px;
+}
+
+.day-name {
+    text-align: center;
+    font-weight: bold;
+    color: #555;
+}
+
+.day {
+    text-align: center;
+    padding: 10px;
+    background: #f4f4f4;
+    border-radius: 4px;
+}
+
+.day:hover {
+    background: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+.day {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    margin: auto;
+    border-radius: 50%;
+    background-color: #f5f5f5;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.day:hover {
+    background-color: #ddd;
+}
+
+.highlight {
+    background-color: #007bff;
+    color: white;
+    font-weight: bold;
+}
+
+</style>
+<script type="text/javascript">
+	const daysContainer = document.getElementById("days-container");
+const monthYear = document.getElementById("month-year");
+const prevBtn = document.getElementById("prev");
+const nextBtn = document.getElementById("next");
+
+let currentDate = new Date();
+
+function renderCalendar(date) {
+    daysContainer.innerHTML = "";
+    const today = new Date();
+    const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+    const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+    monthYear.textContent = date.toLocaleDateString("en-US", {
+        month: "long",
+        year: "numeric",
+    });
+
+    // Add empty divs for days before the first of the month
+    for (let i = 0; i < firstDay.getDay(); i++) {
+        daysContainer.innerHTML += `<div></div>`;
+    }
+
+    // Add days of the current month
+    for (let day = 1; day <= lastDay.getDate(); day++) {
+        const isToday =
+            day === today.getDate() &&
+            date.getMonth() === today.getMonth() &&
+            date.getFullYear() === today.getFullYear();
+
+        daysContainer.innerHTML += `<div class="day ${
+            isToday ? "highlight" : ""
+        }">${day}</div>`;
+    }
+}
+
+prevBtn.addEventListener("click", () => {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    renderCalendar(currentDate);
+});
+
+nextBtn.addEventListener("click", () => {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    renderCalendar(currentDate);
+});
+
+renderCalendar(currentDate);
+
+</script>
+<script type="text/javascript">
+    const events = {% autoescape off %}{{ events|safe }}{% endautoescape %};  // Convert events data to JavaScript object
+    const daysContainer = document.getElementById("days-container");
+    const monthYear = document.getElementById("month-year");
+    const prevBtn = document.getElementById("prev");
+    const nextBtn = document.getElementById("next");
+
+    let currentDate = new Date();
+
+    function renderCalendar(date) {
+        daysContainer.innerHTML = "";
+        const today = new Date();
+        const firstDay = new Date(date.getFullYear(), date.getMonth(), 1);
+        const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0);
+
+        monthYear.textContent = date.toLocaleDateString("en-US", {
+            month: "long",
+            year: "numeric",
+        });
+
+        // Add empty divs for days before the first of the month
+        for (let i = 0; i < firstDay.getDay(); i++) {
+            daysContainer.innerHTML += `<div></div>`;
+        }
+
+        // Add days of the current month
+        for (let day = 1; day <= lastDay.getDate(); day++) {
+            const isToday =
+                day === today.getDate() &&
+                date.getMonth() === today.getMonth() &&
+                date.getFullYear() === today.getFullYear();
+                
+            const dayDate = new Date(date.getFullYear(), date.getMonth(), day);
+            const formattedDate = dayDate.toISOString().split('T')[0];  // Format as YYYY-MM-DD
+
+            const isEvent = events.some(event => event.date === formattedDate);  // Check if there's an event
+
+            const dayClass = isToday ? "highlight" : (isEvent ? "event" : "");
+
+            daysContainer.innerHTML += `<div class="day ${dayClass}">${day}</div>`;
+        }
+    }
+
+    prevBtn.addEventListener("click", () => {
+        currentDate.setMonth(currentDate.getMonth() - 1);
+        renderCalendar(currentDate);
+    });
+
+    nextBtn.addEventListener("click", () => {
+        currentDate.setMonth(currentDate.getMonth() + 1);
+        renderCalendar(currentDate);
+    });
+
+    renderCalendar(currentDate);
+
+</script>
+{% endblock %}

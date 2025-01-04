@@ -1,0 +1,14 @@
+{% extends 'todo/main.html' %}
+{% load static %}
+{% block content %}
+<section id="del-wrapper">
+<h1>PDF Documents</h1>
+    <ul>
+        {% for pdf in pdfs %}
+            <li>
+                <a href="{{ pdf.pdf.url }}">{{ pdf.title }}</a>
+            </li>
+        {% endfor %}
+    </ul>
+</section>
+{% endblock %}

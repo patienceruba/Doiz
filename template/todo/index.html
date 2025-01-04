@@ -1,0 +1,111 @@
+
+{% extends 'todo/main.html' %}
+{% load static %}
+{% block content %}
+{% if user.is_staff %}
+<section class="wrapper">
+    <div class="side-bar">
+        <div class="profile">
+            <ul>
+                <a href="{% url 'dashboard' %}" id="profile-btn"><li><span class="material-symbols-outlined">dashboard_customize</span>Dashboard</li></a>
+                {% if user.is_staff %}
+                <a href="{% url 'add' %}" id="add-btn"><li><span class="material-symbols-outlined">add</span>Add Task</li></a>
+                <a href="{% url 'home' %}" id="view-btn"><li><span class="material-symbols-outlined">view_list</span>View Task</li></a>
+                {% endif %}
+                <a href="" id="today-btn"><li><span class="material-symbols-outlined">today</span>Today</li></a>
+                <a href="{% url 'event' %}" id="upcoming-btn"><li><span class="material-symbols-outlined">event_upcoming</span>Event</li></a>
+                <a href="{% url 'task_done' %}" id="done"><li><span class="material-symbols-outlined">task</span>Done</li></a>
+                <a href="team.html" id="team"><li><span class="material-symbols-outlined">groups</span>Team</li></a>
+                <a href="{% url 'calendar' %}" id="team"><li><span class="material-symbols-outlined">calendar_month</span>Calender</li></a>               
+                <a href="loginpage.html" id="login-btn"><li><span class="material-symbols-outlined">login</span>login</li></a>
+                <a href="{% url 'logout' %}" id="logout-btn"><li><span class="material-symbols-outlined">logout</span>logout</li></a>
+            </ul>
+        </div>
+    </div>
+    <section id="view-section" class="section1">
+        <div class="view-list">
+            <h2>Available Task</h2>
+            <table>
+                <tr>
+                    <th>Done</th>
+                    <th>Task Name</th>
+                    <th>Start Date</th>
+                    <th>Expected End Date</th>
+                    <th>Task Progress</th>
+                    <th>Update</th>
+                    <th>Delete</th>
+                </tr>
+                {% for tasks in task %}
+                <tr>
+                    
+                       {% if tasks.progress == 100 %}
+                            <td><input type="checkbox" name="asdone" id="asdone" checked disabled></td>
+                        {% else %}
+                            <td><input type="checkbox" name="asdone" id="asdone" disabled></td>
+                        {% endif %}
+
+                        <td>{{tasks.title}}</td>
+                        <td>{{tasks.start_date}}</td>
+                        <td>{{tasks.end_date}}</td>
+                        <td>
+                            <div class="progress-container">
+                                <div class="progress-bar" style="width: {{ tasks.progress }}%;"></div>
+                                <span class="progress-text">{{tasks.progress}}%</span>
+                            </div>
+                        </td>
+                        <td id="update-btn"><a href="{% url 'update'  tasks.id%}">Update</a></td>
+                        <td id="dlt-btn"><a href="{% url 'delete'  tasks.id%}">Delete</a></td>
+                    
+
+                </tr>
+                {% endfor %}
+            </table>        
+        </div>
+    </section>
+</section>
+<section>
+    <span> <p>&copy; 2024 InfinityMind Company. All Rights Reserved.</p></span>
+</section>
+<style type="text/css">
+    span{
+        cursor: pointer;
+    }
+    /* Progress Bar Container */
+.progress-container {
+    position: relative;
+    width: 100%;
+    height: 20px;
+    background-color: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    margin: 5px 0;
+}
+
+/* Progress Bar */
+.progress-bar {
+    height: 100%;
+    background-color: #4caf50;
+    transition: width 0.3s ease;
+}
+
+/* Percentage Text Overlay */
+.progress-container .progress-text {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 12px;
+    color: grey;
+    font-weight: bold;
+    line-height: 20px;
+    text-align: center;
+    z-index: 2;
+}
+
+</style>
+<script type="text/javascript">
+
+
+</script>
+{% endif %}
+{% endblock %}

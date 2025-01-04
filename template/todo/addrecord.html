@@ -1,0 +1,75 @@
+{% extends "todo/main.html" %}
+{% load static %}
+{% block content %}
+<section class="wrapper">
+     <div class="side-bar">
+        <div class="profile">
+            <ul>
+                <a href="{% url 'dashboard' %}" id="profile-btn"><li><span class="material-symbols-outlined">dashboard_customize</span>Dashboard</li></a>
+                {% if user.is_staff %}
+                <a href="{% url 'add' %}" id="add-btn"><li><span class="material-symbols-outlined">add</span>Add Task</li></a>
+                <a href="{% url 'home' %}" id="view-btn"><li><span class="material-symbols-outlined">view_list</span>View Task</li></a>
+                {% endif %}
+                <a href="" id="today-btn"><li><span class="material-symbols-outlined">today</span>Today</li></a>
+                <a href="{% url 'event' %}" id="upcoming-btn"><li><span class="material-symbols-outlined">event_upcoming</span>Event</li></a>
+                <a href="{% url 'task_done' %}" id="done"><li><span class="material-symbols-outlined">task</span>Done</li></a>
+                <a href="team.html" id="team"><li><span class="material-symbols-outlined">groups</span>Team</li></a>
+                <a href="{% url 'calendar' %}" id="team"><li><span class="material-symbols-outlined">calendar_month</span>Calender</li></a>               
+                <a href="loginpage.html" id="login-btn"><li><span class="material-symbols-outlined">login</span>login</li></a>
+                <a href="{% url 'logout' %}" id="logout-btn"><li><span class="material-symbols-outlined">logout</span>logout</li></a>
+            </ul>
+        </div>
+    </div>
+    <section id="add-section" class="section1">
+        <div class="add-tb">
+            <h2>TODO List</h2>
+            <div class="table">
+                <form method="POST" action="{% url 'add' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <input type="text" name="title" id="title" placeholder="Title....." maxlength="50" required>
+                    <textarea placeholder="Description..." id="message" name="description" required></textarea>
+                    <input type="file" name="image" accept="image/*" required>
+                    <p id="start">
+                        <strong>Starting Date:</strong>
+                        <input type="date" name="starting-date" id="starting">
+                    </p>
+                    <p id="end">
+                        <strong>Ending Date:</strong>
+                        <input type="date" name="ending-date" id="ending">
+                    </p>
+                    <hr>
+                    <input type="submit" id="btn" name="save" value="Save">
+                </form>
+            </div>
+        </div>
+    </section>
+</section>
+<section class="footer">
+    <span> <p id="copy">&copy; 2024 InfinityMind Company. All Rights Reserved.</p></span>
+</section>
+<style type="text/css">
+
+    #start,#end{
+        display: flex;
+        flex-direction: row;
+        width: 12%;
+        margin-left: 80%;
+        margin-top: 0px;
+    }
+    .footer {
+    text-align: center; /* Center the footer content */
+    background: #333; /* Dark background */
+    color: #fff; /* White text */
+    padding: 10px 0; /* Padding on top and bottom */
+}
+      .footer {
+        text-align: center;
+        background: #333;
+        color: #fff;
+        padding: 10px 0;
+    }
+    #add-section{
+        margin-top: 90px;
+    }
+</style>
+{% endblock %}

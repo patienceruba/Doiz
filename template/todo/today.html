@@ -1,0 +1,129 @@
+{% extends 'todo/main.html' %}
+{% load static %}
+{% block content %}
+
+<section class="wrapper">
+    <div class="side-bar">
+        <div class="profile">
+            <ul>
+                <a href="{% url 'dashboard' %}" id="profile-btn"><li><span class="material-symbols-outlined">dashboard_customize</span>Dashboard</li></a>
+                {% if user.is_staff %}
+                <a href="{% url 'add' %}" id="add-btn"><li><span class="material-symbols-outlined">add</span>Add Task</li></a>
+                <a href="{% url 'home' %}" id="view-btn"><li><span class="material-symbols-outlined">view_list</span>View Task</li></a>
+                {% endif %}
+                <a href="" id="today-btn"><li><span class="material-symbols-outlined">today</span>Today</li></a>
+                <a href="{% url 'event' %}" id="upcoming-btn"><li><span class="material-symbols-outlined">event_upcoming</span>Event</li></a>
+                <a href="{% url 'task_done' %}" id="done"><li><span class="material-symbols-outlined">task</span>Done</li></a>
+                <a href="team.html" id="team"><li><span class="material-symbols-outlined">groups</span>Team</li></a>
+                <a href="{% url 'calendar' %}" id="team"><li><span class="material-symbols-outlined">calendar_month</span>Calendar</li></a>               
+                <a href="loginpage.html" id="login-btn"><li><span class="material-symbols-outlined">login</span>Login</li></a>
+                <a href="{% url 'logout' %}" id="logout-btn"><li><span class="material-symbols-outlined">logout</span>Logout</li></a>
+            </ul>
+        </div>
+    </div>
+
+    <section class="content-wrapper">
+        <section id="view-section" class="section1">
+            <div class="content-container">
+                {% if events_today %}
+                    <h2>Events for Today</h2>
+                    <ul>
+                        {% for event in events_today %}
+                            <li>
+                                <div class="content-item">
+                                    <a href=""><img src="{{ event.image.url }}" alt="{{ event.title }}"></a>
+                                    <a href="">{{ event.title }}</a>
+                                    <p>{{ event.description }}</p>
+                                    <p><strong>Time:</strong> {{ event.start_date|date:"D, M d, Y" }}</p>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>No events for today.</p>
+                {% endif %}
+            </div>
+        </section>
+    </section>
+</section>
+
+<section class="footer">
+    <span><p>&copy; 2024 InfinityMind Company. All Rights Reserved.</p></span>
+</section>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Check if there are events for today
+        const eventsToday = {{ events_today|length }};
+        if (eventsToday > 0) {
+            alert('You have events scheduled for today!');
+        } else {
+            console.log('No events for today.');
+        }
+    });
+</script>
+
+<style type="text/css">
+    li{
+        list-style: none;
+    }
+    body {
+        background: white;
+    }
+    span {
+        cursor: pointer;
+    }
+    .content-container {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); /* Responsive columns */
+        gap: 20px; /* Space between grid items */
+        justify-items: center; /* Center items horizontally */
+        padding: 20px; /* Add padding around the grid */
+    }
+    .content-item {
+        background: #f9f9f9;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        text-align: center;
+        padding: 10px;
+        transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    }
+    .content-item:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    }
+    .content-item img {
+        display: block;
+        margin: 0 auto;
+        width: 100px;
+        border-radius: 10px;
+    }
+    a {
+        text-decoration: none;
+        color: #333;
+        font-weight: bold;
+    }
+    #view-section {
+        background: #fff;
+        overflow: hidden;
+        scroll-behavior: smooth;
+        width: 96.5%;
+    }
+    .footer {
+    text-align: center;
+    padding: 10px;
+    background-color: #2c3e50;
+    color: #ecf0f1;
+}
+
+.footer p {
+    margin: 0;
+}
+    .content-wrapper {
+        margin-top: 90px;
+    }
+</style>
+
+{% endblock %}
