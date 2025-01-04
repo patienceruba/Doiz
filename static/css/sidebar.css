@@ -1,0 +1,76 @@
+.side-bar {
+    width: 250px;
+    height: 100vh;
+    background-color: #34495e;
+    top: 0;
+    left: 0;
+    overflow: auto;
+    padding-top: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.side-bar .profile {
+    text-align: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.side-bar .profile img {
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+.side-bar .profile p {
+    color: white;
+    font-size: 16px;
+    margin: 0;
+}
+
+.side-bar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.side-bar ul a {
+    display: block;
+    padding: 15px 20px;
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.side-bar ul a:hover {
+    background-color: #1abc9c;
+    text-decoration: none;
+    color: #fff;
+}
+/*.side-bar {
+    background-color: #333; /* Background color of the sidebar */
+    padding-top: 20px; /* Space from top */
+    padding-left: 20px; /* Space from left */
+    overflow-y: auto; /* Add vertical scrollbar when content overflows */
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+}*/
+
+.side-bar ul {
+    list-style-type: none; /* Remove default list styles */
+    padding: 0;
+}
+
+.side-bar ul li {
+    padding: 10px 0; /* Padding for each list item */
+    color: white; /* Text color */
+    font-size: 18px; /* Font size */
+}
+
+.side-bar ul li a {
+    color: white; /* Link color */
+    text-decoration: none; /* Remove underline from links */
+    display: block; /* Make links fill the list item */
+}
+
+.side-bar ul li a:hover {
+    background-color: #575757; /* Highlight links on hover */
+    padding-left: 10px; /* Add a slight indentation effect on hover */
+}

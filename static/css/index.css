@@ -1,0 +1,170 @@
+/* Styling for the view-section */
+.nav{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+.wrapper{
+    display: flex;
+    flex-direction: row;
+}
+#search{
+    margin-right: 300px;
+    padding: 10px 20px;
+    text-align: center;
+    border: none;
+    border-radius: 10px;
+}
+#view-section {
+    margin: 0px;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    width: 80%;
+}
+
+.view-list h2 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 24px;
+}
+
+.view-list ul {
+    list-style: none;
+    padding: 0;
+}
+
+.view-list ul li {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #f9f9f9;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+}
+
+button.del-btn, button.up-btn {
+    padding: 5px 10px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+button.del-btn {
+    background-color: #dc3545;
+}
+
+button.del-btn:hover {
+    background-color: #c82333;
+}
+
+button.up-btn {
+    background-color: #007bff;
+}
+
+button.up-btn:hover {
+    background-color: #0056b3;
+}
+.info{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+table {
+            width: 100%;
+            margin: 5px auto;
+            border-collapse: collapse;
+            text-align: left;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+    text-transform: uppercase;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+td {
+    font-size: 14px;
+}
+#update-btn{
+ 
+    background-color: blue;
+}
+ #dlt-btn{
+    background-color: red;
+ }
+table {
+    width: 100%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #1abc9c;
+    color: white;
+}
+
+table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+#update-btn a, #dlt-btn a {
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: #3498db;
+}
+
+#dlt-btn a {
+    background-color: #e74c3c;
+}
+
+#update-btn a:hover, #dlt-btn a:hover {
+    opacity: 0.8;
+}
+tr #asdone{
+    border: none;
+    border-radius: 50%;
+}
+/*disable browser's scroll down */
+/* Disable the main browser scroll 
+html, body {
+    overflow: hidden; /* Disable the default scroll */
+    margin: 0; /* Remove any default margin */
+    padding: 0; /* Remove any default padding */
+    height: 100%; /* Ensure the full height */
+}
+*/
